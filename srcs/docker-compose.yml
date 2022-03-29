@@ -1,0 +1,41 @@
+version: "3"
+
+services:
+  <service_name1>:
+    build: nginx #:<version>
+		container_name: inception
+		ports:
+			- <host_port>:<container_port>
+		depends_on:
+			- <other_service>
+		env_file:
+			- <path_to_env_file>
+		volumes:
+			- <volume_name>:<path_in_container>
+		networks:
+			- <network_name>
+		restart: <restart_policy>
+
+  <service_name2>:
+    build: <image_name>:<version>
+		container_name: <container_name (no seriously what suprise)>
+		ports:
+			- <host_port>:<container_port>
+		depends_on:
+			- <other_service>
+		env_file:
+			- <path_to_env_file>
+		volumes:
+			- <volume_name>:<path_in_container>
+		restart: <restart_policy>
+
+networks:
+	inception
+
+volumes:
+	<volume_name>:
+		driver: local
+		driver_opts:
+			type: none
+			device: <host_path>
+			o: bind
