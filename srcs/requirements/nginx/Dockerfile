@@ -1,11 +1,10 @@
 #image created from
 FROM debian:buster 
 
-#use the nginx conf instead of the default
-COPY srcs/nginx.conf /etc/nginx/sites-available/
+RUN apt-get update && apt-get install -y nginx openssl
 
-RUN ln -s /etc/nginx/sites-available/nginx.conf /etc/nginx/sites-enabled/ \
-&& rm -rf /etc/nginx/sites-enabled/default
+#use the nginx conf instead of the default
+COPY ./nginx.conf /etc/nginx/nginx.conf
 
 #ssl protocol
 RUN mkdir /etc/nginx/ssl/ \
