@@ -4,7 +4,7 @@ FROM debian:buster
 RUN apt-get update && apt-get install -y nginx openssl
 
 #use the nginx conf instead of the default
-COPY ./nginx.conf /etc/nginx/nginx.conf
+COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 
 #ssl protocol
 RUN mkdir /etc/nginx/ssl/ \

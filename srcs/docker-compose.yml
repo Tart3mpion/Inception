@@ -1,23 +1,21 @@
-version: "3"
+version: "3.1"
 
 services:
-  <service_name1>:
-    build: nginx #:<version>
-		container_name: inception
-		ports:
-			- <host_port>:<container_port>
-		depends_on:
-			- <other_service>
-		env_file:
-			- <path_to_env_file>
-		volumes:
-			- <volume_name>:<path_in_container>
-		networks:
-			- <network_name>
-		restart: <restart_policy>
+	nginx:
+    	build: ./requirements/nginx
+	container_name: nginx
+	ports:
+	- "443:443"
+	#depends_on:	
+	#- wordpress
+	env_file:
+	- ./.env
+	networks:
+	- inception
+	restart: on-failure
 
-  <service_name2>:
-    build: <image_name>:<version>
+ 	mariadb:
+   	   build: <image_name>:<version>
 		container_name: <container_name (no seriously what suprise)>
 		ports:
 			- <host_port>:<container_port>
@@ -30,12 +28,12 @@ services:
 		restart: <restart_policy>
 
 networks:
-	inception
+	inception:
 
 volumes:
-	<volume_name>:
-		driver: local
+	wp_data:
+	 	driver: local
 		driver_opts:
 			type: none
-			device: <host_path>
+			device: /home/ldes-cou/data/wp_data
 			o: bind
