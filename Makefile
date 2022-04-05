@@ -10,7 +10,7 @@ restart:
 		@docker-compose -f 	${COMPOSE_FILE} stop
 		@docker-compose -f  ${COMPOSE_FILE} up	
 all:
-		@build up
+		build up
 debug:
 		@docker-compose -f ${COMPOSE_FILE} exec nginx bash 
 clean:
@@ -21,3 +21,5 @@ fclean:
 
 re:
 		fclean all
+
+.PHONY=all clean fclean re restart up debug build
