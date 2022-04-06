@@ -1,14 +1,17 @@
 #!/bin/bash
-rm -rf /var/www/html
-file=/var/www/html/wp*
-if [ ! -f "$file" ]; then
-    mkdir -p /var/www/html && cd /var/www/html/ && wp core download --allow-root
-    # && wp config create --dbname=wp_data --dbuser=db_user --dbpass=db_pass --dbhost=ldes-cou.42.fr --dbcharset="utf8" --dbcollate="utf8_general_ci" --allow-root \
-    # && wp core install --url=ldes-cou.42.fr/wordpress --title=my superduper site --admin_user=ldes-cou --admin_password=Hello --admin_email=ldes-cou@student.42.fr --skip-email --allow-root \
-    # && wp user create lulu ldes-cou@student.42.fr --role=author --user_pass=coucou --allow-root \
-    # && wp theme install Spacious --activate --allow-root \
+
+if [ ! -f /var/www/html/wp-config.php  ]; then
+    until mysqladmin -h $WP_DB_HOST ping;do
+        sleep 2
+    done
+    mkdir -p /var/www/html && cd /var/www/html/ && wp core download --allow-root \
+    && wp config create --dbname=$MYSQL_DB --dbuser=$MYSQL_USER --dbpass=$MYSQL_USER_PASSWORD --dbhost=$WP_DB_HOST --dbcharset="utf8" --dbcollate="utf8_general_ci" --allow-root \
+    && wp core install --url=ldes-cou.42.fr --title=$WP_TITLE --admin_user=$WP_ADMIN --admin_password=$WP_ADMIN_PASS --admin_email=$WP_ADMIN_MAIL --skip-email --allow-root \
+    && wp user create $WP_USER $WP_USER_MAIL --role=author --user_pass=$WP_PASSWORD --allow-root \
+    && wp theme install $WP_THEME --activate --allow-root 
 else
     echo "LOL"
 fi
 
+echo "Launch php"
 php-fpm7.3 -F -R
