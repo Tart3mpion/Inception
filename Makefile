@@ -1,5 +1,6 @@
 
 COMPOSE_FILE=./srcs/docker-compose.yml
+
 HOST_PRESENT = $(shell cat /etc/hosts | grep ldes-cou.42.fr > /dev/null; echo $$)
 
 all:
@@ -18,6 +19,6 @@ clean:
 
 fclean: clean
 	@docker system prune
-re: clean all
+re: fclean all
 
 .PHONY : all clean fclean re up 

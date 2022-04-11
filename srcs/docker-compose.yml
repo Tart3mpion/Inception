@@ -30,10 +30,10 @@ services:
   
   mariadb:
     build: ./requirements/mariadb
-    container_name: "mariadb"
+    container_name: mariadb
     env_file: ../.env
     ports: 
-     - 3306:3306
+     - 127.0.0.1:3306:3306
     volumes:
      - db_vol:/var/lib/mysql
     networks:
