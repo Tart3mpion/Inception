@@ -9,7 +9,7 @@ RUN chmod +x wp-cli.phar \
     && cp wp-cli.phar /usr/local/bin/wp
     
 #install wp
-#RUN rm /etc/php/7.0/fpm/pool.d/www.conf 
+
 COPY conf/www.conf /etc/php/7.3/fpm/pool.d/
 COPY conf/script.sh .
 
